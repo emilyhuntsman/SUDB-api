@@ -66,26 +66,6 @@ users.get("/login/:user/:pw", (req, res) => {
 });
 
 users.put("/:user/:list/:title", (req, res) => {
-<<<<<<< HEAD
-  if (req.params.list === "past") {
-    console.log("past");
-  }
-  if (req.params.list === "future") {
-    console.log("future");
-  }
-  // User.findOneAndUpdate({"username": req.params.user}
-  //   req.params.id,
-  //   req.body,
-  //   { new: true },
-  //   (err, updatedUser) => {
-  //     if (err) {
-  //       res.status(400).json({ error: err.message });
-  //     }
-  //     console.log("putting to ",updatedUser)
-  //     res.status(200).json(updatedUser);
-  //   }
-  // );
-=======
   if (req.params.list === "future") {
     User.findOneAndUpdate({"username": req.params.user},{$push: { toread : req.params.title}},{ new: true },(err, updatedUser) => {
         if (err) {
@@ -125,7 +105,6 @@ users.put("/remove/:user/:list/:title", (req, res) => {
     }
   );
   }
->>>>>>> 92fb1180c629042b0cb0fd46258ab96182e84e34
 });
 
 module.exports = users;
