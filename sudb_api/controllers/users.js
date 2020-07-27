@@ -25,18 +25,10 @@ users.get("/", (req, res) => {
 });
 
 users.get("/:user", (req, res) => {
-<<<<<<< HEAD
-  User.find({"username":req.param.user}, (err, foundUser) => {
-    if (err) {
-      res.status(400).json({ error: err.message });
-    }
-    console.log("user ",foundUser);
-=======
   User.find({"username": req.params.user}, (err, foundUser) => {
     if (err) {
       res.status(400).json({ error: err.message });
     }
->>>>>>> 92fb1180c629042b0cb0fd46258ab96182e84e34
     res.status(200).json(foundUser);
   });
 });
