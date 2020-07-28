@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const User = require("../models/user.js");
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const SECURITY_TOKEN = 3c202bcb97b88efee83c11b64d5d8cf623ce56f1366b1545bb2f71cce252125d41310d5dfabefd0dbee30fb23c52c2dbd1ac2bcd68154b75dbfac1fe1afac1d6;
+const SECURITY_TOKEN = '3c202bcb97b88efee83c11b64d5d8cf623ce56f1366b1545bb2f71cce252125d41310d5dfabefd0dbee30fb23c52c2dbd1ac2bcd68154b75dbfac1fe1afac1d6';
 
 users.use(bodyParser.urlencoded({ extended: true }));
 users.use(express.json());
