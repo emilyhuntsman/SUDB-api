@@ -1,10 +1,36 @@
+require('dotenv').config()
+
 const express = require("express");
 const users = express.Router();
 const bodyParser = require("body-parser");
 const User = require("../models/user.js");
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const SECURITY_TOKEN = process.env.SECURITY_TOKEN;
 
 users.use(bodyParser.urlencoded({ extended: true }));
 users.use(express.json());
+
+users.post("/login", (req, res) => {
+
+  User.findOne({ username: req.body.user }, (err, user) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+    }
+    if (bcrypt.compareSync(req.body.password, user.password)) {
+      let securityToken = jwt.sign(
+        { username: user.username },
+        SECURITY_TOKEN,
+        { expiresIn: "1h" });
+      res.status(200).json({
+        username: user.username,
+        securityToken: securityToken
+      });
+    } else {
+      res.status(401).json({ message: "username/password not found" })
+    }
+  });
+});
 
 users.post("/", async (req, res) => {
   User.create(req.body, (error, createdUser) => {
