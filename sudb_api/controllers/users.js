@@ -13,10 +13,8 @@ users.use(bodyParser.urlencoded({ extended: true }));
 users.use(express.json());
 
 users.post("/login", (req, res) => {
-  console.log('hello', req.body)
 
   User.findOne({ username: req.body.user }, (err, user) => {
-    console.log('findone', user)
     if (err) {
       res.status(400).json({ error: err.message });
     }
@@ -25,7 +23,6 @@ users.post("/login", (req, res) => {
         { username: user.username },
         SECURITY_TOKEN,
         { expiresIn: "1h" });
-      console.log(user);
       res.status(200).json({
         username: user.username,
         securityToken: securityToken
@@ -33,30 +30,6 @@ users.post("/login", (req, res) => {
     } else {
       res.status(401).json({ message: "username/password not found" })
     }
-    //   let isAuth = false
-
-    //   bcrypt.compareSync(req.body.password, user.password, function (err, result) {
-    //     console.log('bcrypt hit')
-    //     isAuth = true;
-    //     let securityToken = jwt.sign(
-    //       {
-    //         username: user.username
-    //       },
-    //       SECURITY_TOKEN,
-    //       {
-    //         expiresIn: '1hr'
-    //       }
-    //     );
-    //     res.status(200).json({
-    //       username: user.username,
-    //       token: securityToken,
-    //       auth: isAuth,
-    //     })
-    //   })
-    //   if (isAuth === false) {
-    //     res.status(400).json({ message: 'Username/Password Not Found', auth: isAuth })
-    //   }
-    // });
   });
 });
 
